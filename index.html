@@ -384,15 +384,8 @@ function showDay(n){
 function tog(el){el.classList.toggle('open')}
 
 const COLORS=['#0058DD','#257640','#B6420D','#219ACD','#B6420D','#72243E','#3B6D11','#5F5E5A'];
-const DEFAULTS=[
-  {name:'Data & attribution',x:0.72,y:0.28},
-  {name:'Creator economy',x:0.38,y:0.35},
-  {name:'QRCG funnel',x:0.65,y:0.22},
-  {name:'SMS / Textla',x:0.42,y:0.55},
-  {name:'Pricing & packaging',x:0.55,y:0.6},
-  {name:'Partnerships',x:0.3,y:0.65},
-];
-let bets=DEFAULTS.map(b=>({...b}));
+const DEFAULTS=[];
+let bets=[];
 let dragging=null,placing=null;
 
 function renderMatrix(){
@@ -454,7 +447,7 @@ function addBet(){
   document.getElementById('mat-info').textContent=`Click on the matrix to place "${name}"`;
   renderMatrix();
 }
-function resetPos(){bets=DEFAULTS.map(b=>({...b}));placing=null;document.getElementById('mat-info').textContent='Positions reset to defaults.';renderMatrix()}
+function resetPos(){bets=[];placing=null;document.getElementById('mat-info').textContent='All bets cleared.';renderMatrix()}
 function clearAll(){bets=[];placing=null;document.getElementById('mat-info').textContent='All bets cleared. Add new ones above.';renderMatrix()}
 document.addEventListener('dragend',()=>{dragging=null;renderMatrix()});
 renderMatrix();
