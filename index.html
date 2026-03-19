@@ -5,142 +5,188 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bitly Product Offsite — May 18–20</title>
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f6f2;color:#1a1a1a;min-height:100vh}
-  .site-nav{background:#fff;border-bottom:1px solid #e5e5e5;padding:0 32px;display:flex;align-items:center;gap:0;position:sticky;top:0;z-index:100}
-  .nav-brand{font-size:14px;font-weight:700;color:#534AB7;padding:14px 0;margin-right:24px;letter-spacing:-.01em}
-  .nav-tabs{display:flex;gap:0}
-  .nav-tab{padding:14px 18px;font-size:13px;font-weight:500;color:#888;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
-  .nav-tab:hover{color:#333}
-  .nav-tab.active{color:#534AB7;border-bottom-color:#534AB7}
-  .page{display:none;padding:32px;max-width:800px;margin:0 auto}
-  .page.active{display:block}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f6f2;color:#1a1a1a;min-height:100vh}
+.site-nav{background:#fff;border-bottom:1px solid #e5e5e5;padding:0 24px;display:flex;align-items:center;position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:0}
+.nav-brand{font-size:14px;font-weight:700;color:#534AB7;padding:14px 0;margin-right:20px}
+.nav-tabs{display:flex}
+.nav-tab{padding:14px 16px;font-size:13px;font-weight:500;color:#888;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none}
+.nav-tab:hover{color:#333}
+.nav-tab.active{color:#534AB7;border-bottom-color:#534AB7}
+.page{display:none;padding:28px 24px;max-width:780px;margin:0 auto}
+.page.active{display:block}
 
-  /* Agenda page */
-  .page-title{font-size:26px;font-weight:700;margin-bottom:4px}
-  .page-meta{font-size:13px;color:#888;margin-bottom:24px}
-  .dm-bar{background:#EEEDFE;border:1px solid #AFA9EC;border-radius:10px;padding:14px 18px;margin-bottom:16px;font-size:13px;color:#3C3489;line-height:1.6}
-  .dm-bar strong{font-weight:600}
-  .pw-bar{background:#E1F5EE;border:1px solid #5DCAA5;border-radius:10px;padding:14px 18px;margin-bottom:20px}
-  .pw-bar .pw-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#085041;margin-bottom:8px}
-  .pw-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-  .pw-item{font-size:13px;color:#0F6E56;display:flex;gap:5px;line-height:1.5}
-  .pw-item b{color:#085041}
-  .oc-box{background:#f0efe9;border-radius:10px;padding:14px 18px;margin-bottom:24px}
-  .oc-box h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#888;margin-bottom:10px}
-  .oc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .oc-item{font-size:13px;color:#555;display:flex;gap:8px;align-items:flex-start;line-height:1.5}
-  .oc-dot{width:6px;height:6px;border-radius:50%;background:#aaa;flex-shrink:0;margin-top:5px}
-  .day-tabs{display:flex;gap:8px;margin-bottom:24px}
-  .day-tab{flex:1;padding:10px 8px;border-radius:8px;border:1.5px solid #ddd;background:#fff;cursor:pointer;font-size:12px;font-weight:600;color:#888;line-height:1.4;text-align:center;transition:all .15s}
-  .day-tab:hover{border-color:#bbb}
-  .day-tab.a1{background:#EEEDFE;border-color:#534AB7;color:#3C3489}
-  .day-tab.a2{background:#E1F5EE;border-color:#0F6E56;color:#085041}
-  .day-tab.a3{background:#FAECE7;border-color:#993C1D;color:#712B13}
-  .day-panel{display:none}
-  .day-panel.active{display:block}
-  .day-theme{font-size:13px;font-style:italic;color:#888;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #e5e5e5}
-  .sec-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#aaa;margin:20px 0 8px}
-  .session{border-radius:10px;border:1px solid #e5e5e5;margin-bottom:8px;overflow:hidden;background:#fff}
-  .sh{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;cursor:pointer;user-select:none}
-  .sh:hover{background:#fafafa}
-  .s-time{font-size:11px;font-weight:600;color:#aaa;white-space:nowrap;padding-top:2px;min-width:62px}
-  .s-mid{flex:1}
-  .s-title{font-size:14px;font-weight:600;line-height:1.4;color:#1a1a1a}
-  .s-roles{display:flex;gap:4px;margin-top:5px;flex-wrap:wrap}
-  .rp{font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px}
-  .rp-all{background:#E6F1FB;color:#0C447C}
-  .rp-pm{background:#EEEDFE;color:#3C3489}
-  .rp-lead{background:#E1F5EE;color:#085041}
-  .rp-design{background:#FAEEDA;color:#633806}
-  .rp-cpo{background:#FAECE7;color:#712B13}
-  .s-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
-  .s-dur{font-size:11px;color:#aaa}
-  .s-chev{font-size:11px;color:#ccc;transition:transform .15s}
-  .session.open .s-chev{transform:rotate(90deg)}
-  .sb{display:none;padding:0 16px 14px 90px;font-size:13px;color:#555;line-height:1.7;border-top:1px solid #f0f0f0;background:#fafafa}
-  .session.open .sb{display:block}
-  .sb ul{padding-left:16px;margin-top:6px}
-  .sb li{margin-bottom:3px}
-  .out-lbl{font-weight:700;color:#333;margin-top:10px;font-size:11px;text-transform:uppercase;letter-spacing:.04em}
-  .out-txt{margin-top:2px;color:#666}
-  .design-note{background:#FAEEDA;border-left:3px solid #EF9F27;padding:8px 12px;font-size:12px;color:#633806;margin-top:10px;line-height:1.5}
-  .break-row{display:flex;align-items:center;gap:10px;padding:6px 0}
-  .bl{flex:1;height:1px;background:#e5e5e5}
-  .blab{font-size:11px;color:#bbb}
-  .daily-close{border:1px solid #e0e0e0;border-radius:10px;margin-top:16px;padding:14px 18px;background:#f7f6f2}
-  .dc-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#aaa;margin-bottom:6px}
-  .dc-items{display:flex;flex-direction:column;gap:4px;font-size:13px;color:#666}
-  .pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;margin-right:4px;margin-bottom:3px}
-  .pd1{background:#EEEDFE;color:#3C3489}
-  .scoring-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
-  .scoring-table th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#aaa;text-align:left;padding:6px 8px;border-bottom:1px solid #e5e5e5}
-  .scoring-table td{padding:7px 8px;border-bottom:1px solid #f0f0f0;color:#555;vertical-align:top;line-height:1.5}
-  .scoring-table tr:last-child td{border-bottom:none}
-  .scoring-table td:first-child{font-weight:600;color:#1a1a1a}
-  .quad-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
-  .quad{border-radius:8px;padding:12px;font-size:13px;border:1px solid transparent}
-  .quad-lbl{font-weight:700;font-size:12px;margin-bottom:4px}
-  .quad-act{font-size:12px;line-height:1.5}
+/* shared */
+.page-title{font-size:24px;font-weight:700;margin-bottom:4px}
+.page-meta{font-size:13px;color:#888;margin-bottom:20px}
+.pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;margin-right:4px;margin-bottom:3px;background:#EEEDFE;color:#3C3489}
+.break-row{display:flex;align-items:center;gap:10px;padding:6px 0}
+.bl{flex:1;height:1px;background:#e5e5e5}
+.blab{font-size:11px;color:#bbb}
+.out-lbl{font-weight:700;color:#333;margin-top:10px;font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+.out-txt{margin-top:2px;color:#666}
 
-  /* Worksheet page */
-  .ws-section{margin-bottom:20px;border:1px solid #e5e5e5;border-radius:10px;overflow:hidden;background:#fff}
-  .ws-hdr{padding:12px 18px;display:flex;align-items:center;gap:10px}
-  .ws-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
-  .ws-title{font-size:14px;font-weight:600}
-  .ws-hint{font-size:12px;margin-left:auto;font-style:italic}
-  .ws-body{padding:14px 18px;border-top:1px solid #e5e5e5;background:#fafafa}
-  .ws-prompt{font-size:12px;color:#888;margin-bottom:6px;line-height:1.5}
-  .ws-area{background:#fff;border:1px solid #ddd;border-radius:6px;min-height:72px;padding:10px 12px;font-size:13px;color:#bbb;line-height:1.6}
-  .ws-area.tall{min-height:100px}
-  .ws-sketch{border:1.5px dashed #ddd;border-radius:8px;min-height:90px;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:13px;margin-top:10px;background:#fff}
-  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .fld-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#aaa;margin-bottom:4px}
-  .meta-fields{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:28px}
-  .mf{display:flex;gap:6px;align-items:center}
-  .mf label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:#aaa}
-  .mf .line{border-bottom:1.5px solid #ccc;min-width:120px;height:20px}
+/* agenda */
+.dm-bar{background:#EEEDFE;border:1px solid #AFA9EC;border-radius:10px;padding:14px 18px;margin-bottom:14px;font-size:13px;color:#3C3489;line-height:1.6}
+.dm-bar strong{font-weight:700}
+.pw-bar{background:#E1F5EE;border:1px solid #5DCAA5;border-radius:10px;padding:14px 18px;margin-bottom:18px}
+.pw-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#085041;margin-bottom:8px}
+.pw-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.pw-item{font-size:13px;color:#0F6E56;display:flex;gap:5px;line-height:1.5}
+.pw-item b{color:#085041}
+.oc-box{background:#f0efe9;border-radius:10px;padding:14px 18px;margin-bottom:22px}
+.oc-box h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#888;margin-bottom:10px}
+.oc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.oc-item{font-size:13px;color:#555;display:flex;gap:8px;align-items:flex-start;line-height:1.5}
+.oc-dot{width:6px;height:6px;border-radius:50%;background:#aaa;flex-shrink:0;margin-top:5px}
+.day-tabs{display:flex;gap:8px;margin-bottom:22px}
+.day-tab{flex:1;padding:10px 8px;border-radius:8px;border:1.5px solid #ddd;background:#fff;cursor:pointer;font-size:12px;font-weight:600;color:#888;line-height:1.4;text-align:center;transition:all .15s}
+.day-tab:hover{border-color:#bbb}
+.day-tab.a1{background:#EEEDFE;border-color:#534AB7;color:#3C3489}
+.day-tab.a2{background:#E1F5EE;border-color:#0F6E56;color:#085041}
+.day-tab.a3{background:#FAECE7;border-color:#993C1D;color:#712B13}
+.day-panel{display:none}.day-panel.active{display:block}
+.day-theme{font-size:13px;font-style:italic;color:#888;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid #e5e5e5}
+.sec-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#aaa;margin:18px 0 8px}
+.session{border-radius:10px;border:1px solid #e5e5e5;margin-bottom:8px;overflow:hidden;background:#fff}
+.sh{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;cursor:pointer;user-select:none}
+.sh:hover{background:#fafafa}
+.s-time{font-size:11px;font-weight:600;color:#aaa;white-space:nowrap;padding-top:2px;min-width:62px}
+.s-mid{flex:1}
+.s-title{font-size:14px;font-weight:600;line-height:1.4;color:#1a1a1a}
+.s-roles{display:flex;gap:4px;margin-top:5px;flex-wrap:wrap}
+.rp{font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px}
+.rp-all{background:#E6F1FB;color:#0C447C}
+.rp-pm{background:#EEEDFE;color:#3C3489}
+.rp-lead{background:#E1F5EE;color:#085041}
+.rp-cpo{background:#FAECE7;color:#712B13}
+.rp-strat{background:#F1EFE8;color:#444441}
+.s-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.s-dur{font-size:11px;color:#aaa}
+.s-chev{font-size:11px;color:#ccc;transition:transform .15s}
+.session.open .s-chev{transform:rotate(90deg)}
+.sb{display:none;padding:0 16px 14px 90px;font-size:13px;color:#555;line-height:1.7;border-top:1px solid #f0f0f0;background:#fafafa}
+.session.open .sb{display:block}
+.sb ul{padding-left:16px;margin-top:6px}
+.sb li{margin-bottom:3px}
+.daily-close{border:1px solid #e0e0e0;border-radius:10px;margin-top:14px;padding:14px 18px;background:#f7f6f2}
+.dc-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#aaa;margin-bottom:6px}
+.dc-items{display:flex;flex-direction:column;gap:4px;font-size:13px;color:#666}
+.scoring-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+.scoring-table th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#aaa;text-align:left;padding:6px 8px;border-bottom:1px solid #e5e5e5}
+.scoring-table td{padding:7px 8px;border-bottom:1px solid #f0f0f0;color:#555;vertical-align:top;line-height:1.5}
+.scoring-table tr:last-child td{border-bottom:none}
+.scoring-table td:first-child{font-weight:600;color:#1a1a1a}
+.fw-refs{margin-top:12px;padding:10px 12px;background:#f0efe9;border-radius:8px;border:1px solid #e5e5e5}
+.fw-refs-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#aaa;margin-bottom:8px}
+.fw-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fw-item{font-size:12px;line-height:1.5;color:#666}
+.fw-item strong{font-weight:700;color:#333;display:block;margin-bottom:2px}
+.quad-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.quad{border-radius:8px;padding:12px;border:1px solid transparent}
+.quad-lbl{font-weight:700;font-size:12px;margin-bottom:4px}
+.quad-act{font-size:12px;line-height:1.5}
 
-  /* Prework page */
-  .eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#534AB7;margin-bottom:8px}
-  .tagline{font-size:15px;color:#666;margin-bottom:28px;line-height:1.5}
-  .ctx-box{background:#EEEDFE;border-radius:10px;padding:20px 24px;margin-bottom:28px}
-  .ctx-box h2{font-size:15px;font-weight:700;color:#3C3489;margin-bottom:10px}
-  .ctx-box p{font-size:13px;color:#534AB7;line-height:1.7}
-  .ctx-box p+p{margin-top:8px}
-  .role-sec{margin-bottom:28px}
-  .role-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:1.5px solid #e5e5e5}
-  .rb{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px}
-  .rb-all{background:#E6F1FB;color:#0C447C}
-  .rb-pm{background:#EEEDFE;color:#3C3489}
-  .rb-lead{background:#E1F5EE;color:#085041}
-  .rb-design{background:#FAEEDA;color:#633806}
-  .role-hdr h2{font-size:15px;font-weight:700}
-  .task-list{display:flex;flex-direction:column;gap:10px}
-  .task{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;background:#fff;border:1px solid #e5e5e5;border-radius:8px}
-  .task-chk{width:18px;height:18px;border:1.5px solid #ccc;border-radius:4px;flex-shrink:0;margin-top:1px}
-  .task-txt{font-size:13px;line-height:1.6;color:#333}
-  .task-txt strong{font-weight:700;color:#1a1a1a}
-  .task-note{font-size:12px;color:#888;margin-top:3px}
-  .tmpl-box{border:1px solid #e5e5e5;border-radius:10px;overflow:hidden;margin-top:16px;background:#fff}
-  .tmpl-hdr{background:#EEEDFE;padding:12px 18px;font-size:13px;font-weight:700;color:#3C3489}
-  .tmpl-body{padding:16px 18px;background:#fafafa}
-  .tr-row{display:flex;gap:10px;margin-bottom:8px;align-items:flex-start}
-  .tr-row:last-child{margin-bottom:0}
-  .tr-num{font-size:12px;font-weight:700;color:#534AB7;width:20px;flex-shrink:0;padding-top:1px}
-  .tr-lbl{font-size:13px;font-weight:700;min-width:150px;color:#333}
-  .tr-hint{font-size:12px;color:#888;line-height:1.5}
-  .divider{height:1px;background:#e5e5e5;margin:28px 0}
-  .norms-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
-  .norm{padding:12px 16px;border-radius:8px}
-  .norm-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
-  .norm-txt{font-size:13px;line-height:1.5}
-  .nd{background:#E1F5EE}
-  .nd .norm-lbl{color:#085041}
-  .nd .norm-txt{color:#0F6E56}
-  .nx{background:#FCEBEB}
-  .nx .norm-lbl{color:#791F1F}
-  .nx .norm-txt{color:#A32D2D}
+/* 2x2 matrix */
+.matrix-page-wrap{padding:20px 0}
+.mat-controls{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.mat-controls input{flex:1;min-width:140px;font-size:13px;padding:8px 12px;border:1px solid #ddd;border-radius:8px;outline:none}
+.mat-controls input:focus{border-color:#534AB7}
+.mat-btn{padding:8px 16px;border-radius:8px;border:1px solid #ddd;background:#fff;font-size:13px;font-weight:600;cursor:pointer;color:#333}
+.mat-btn:hover{background:#f5f5f5}
+.mat-btn.primary{background:#EEEDFE;border-color:#534AB7;color:#3C3489}
+.mat-outer{display:flex;gap:8px;align-items:center}
+.mat-y-label{writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;flex-shrink:0}
+.mat-inner{flex:1}
+.matrix{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2px;background:#e5e5e5;border-radius:10px;overflow:hidden;height:360px}
+.quadrant{position:relative;padding:12px;cursor:crosshair}
+.q-tl{background:#FAEEDA}
+.q-tr{background:#E1F5EE}
+.q-bl{background:#FCEBEB}
+.q-br{background:#E6F1FB}
+.q-label{font-size:11px;pointer-events:none;user-select:none;line-height:1.4}
+.q-label .ql-t{font-size:12px;font-weight:700}
+.q-label .ql-s{font-size:11px;margin-top:2px}
+.q-tl .ql-t{color:#633806}.q-tl .ql-s{color:#854F0B}
+.q-tr .ql-t{color:#085041}.q-tr .ql-s{color:#0F6E56}
+.q-bl .ql-t{color:#791F1F}.q-bl .ql-s{color:#A32D2D}
+.q-br .ql-t{color:#0C447C}.q-br .ql-s{color:#185FA5}
+.axis-tick{position:absolute;font-size:10px;color:#bbb;pointer-events:none}
+.bet-dot{position:absolute;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;cursor:grab;transform:translate(-50%,-50%);z-index:10;border:2px solid rgba(255,255,255,0.7);user-select:none;transition:transform .1s;color:#fff}
+.bet-dot:hover{transform:translate(-50%,-50%) scale(1.15)}
+.bet-dot:active{cursor:grabbing}
+.mat-x-label{text-align:center;font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.06em;margin-top:6px}
+.mat-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.mat-legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:#555;cursor:pointer}
+.mat-legend-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;border:2px solid rgba(255,255,255,0.5)}
+.mat-info{margin-top:10px;padding:10px 14px;background:#f7f6f2;border-radius:8px;border:1px solid #e5e5e5;font-size:13px;color:#666;min-height:38px}
+.mat-reset{display:flex;justify-content:flex-end;margin-top:8px}
+
+/* worksheet */
+.ws-meta{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:24px}
+.ws-mf{display:flex;gap:6px;align-items:center}
+.ws-mf label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#aaa}
+.ws-mf .ws-line{border-bottom:1.5px solid #ccc;min-width:120px;height:20px}
+.ws-sec{margin-bottom:18px;border:1px solid #e5e5e5;border-radius:10px;overflow:hidden;background:#fff}
+.ws-hdr{padding:12px 18px;display:flex;align-items:center;gap:10px}
+.ws-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;color:#fff}
+.ws-title{font-size:14px;font-weight:700}
+.ws-hint{font-size:12px;margin-left:auto;font-style:italic}
+.ws-body{padding:14px 18px;border-top:1px solid #e5e5e5;background:#fafafa}
+.ws-prompt{font-size:12px;color:#888;margin-bottom:6px;line-height:1.5}
+.ws-area{background:#fff;border:1px solid #ddd;border-radius:6px;min-height:72px;padding:10px 12px;font-size:13px;color:#999;line-height:1.6}
+.ws-area.tall{min-height:100px}
+.ws-two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ws-flbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#aaa;margin-bottom:4px}
+.ws-sketch{border:1.5px dashed #ddd;border-radius:8px;min-height:90px;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:13px;margin-top:10px;background:#fff}
+
+/* prework */
+.pw-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#534AB7;margin-bottom:8px}
+.pw-tagline{font-size:15px;color:#666;margin-bottom:24px;line-height:1.5}
+.pw-ctx{background:#EEEDFE;border-radius:10px;padding:18px 22px;margin-bottom:24px}
+.pw-ctx h2{font-size:15px;font-weight:700;color:#3C3489;margin-bottom:8px}
+.pw-ctx p{font-size:13px;color:#534AB7;line-height:1.7}
+.pw-ctx p+p{margin-top:8px}
+.pw-role-sec{margin-bottom:24px}
+.pw-role-hdr{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:10px;border-bottom:1.5px solid #e5e5e5}
+.pw-rb{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px}
+.rb-all{background:#E6F1FB;color:#0C447C}
+.rb-pm{background:#EEEDFE;color:#3C3489}
+.rb-lead{background:#E1F5EE;color:#085041}
+.rb-strat{background:#F1EFE8;color:#444441}
+.pw-role-hdr h2{font-size:15px;font-weight:700;color:#1a1a1a}
+.pw-tasks{display:flex;flex-direction:column;gap:10px}
+.pw-task{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;background:#fff;border:1px solid #e5e5e5;border-radius:8px}
+.pw-chk{width:18px;height:18px;border:1.5px solid #ccc;border-radius:4px;flex-shrink:0;margin-top:1px}
+.pw-txt{font-size:13px;line-height:1.6;color:#333}
+.pw-txt strong{font-weight:700;color:#1a1a1a}
+.pw-note{font-size:12px;color:#888;margin-top:3px}
+.tmpl-box{border:1px solid #e5e5e5;border-radius:10px;overflow:hidden;margin-top:14px;background:#fff}
+.tmpl-hdr{background:#EEEDFE;padding:12px 18px;font-size:13px;font-weight:700;color:#3C3489}
+.tmpl-body{padding:14px 18px;background:#fafafa}
+.tr-row{display:flex;gap:10px;margin-bottom:8px;align-items:flex-start}
+.tr-row:last-child{margin-bottom:0}
+.tr-num{font-size:12px;font-weight:700;color:#534AB7;width:18px;flex-shrink:0}
+.tr-lbl{font-size:13px;font-weight:700;min-width:150px;color:#333}
+.tr-hint{font-size:12px;color:#888;line-height:1.5}
+.pw-divider{height:1px;background:#e5e5e5;margin:24px 0}
+.norms-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.norm{padding:12px 16px;border-radius:8px}
+.norm-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.norm-txt{font-size:13px;line-height:1.5}
+.nd{background:#E1F5EE}.nd .norm-lbl{color:#085041}.nd .norm-txt{color:#0F6E56}
+.nx{background:#FCEBEB}.nx .norm-lbl{color:#791F1F}.nx .norm-txt{color:#A32D2D}
+
+@media(max-width:540px){
+  .pw-grid,.oc-grid,.fw-grid,.ws-two,.norms-grid,.quad-grid{grid-template-columns:1fr}
+  .day-tabs{flex-direction:column}
+  .mat-outer{flex-direction:column}
+  .mat-y-label{writing-mode:horizontal-tb;transform:none}
+  .matrix{height:300px}
+}
+.download-btn{background:#534AB7;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;margin-top:24px}
+.download-btn:hover{background:#3C3489}
+@media print{.site-nav,.mat-controls,.mat-reset,.download-btn{display:none!important}.page{display:none!important}body[data-print='worksheet'] #pg-worksheet{display:block!important;padding:20px}body[data-print='prework'] #pg-prework{display:block!important;padding:20px}body:not([data-print]) .page.active{display:block!important;padding:0}}
 </style>
 </head>
 <body>
@@ -148,35 +194,36 @@
 <nav class="site-nav">
   <div class="nav-brand">Bitly Offsite &rsquo;25</div>
   <div class="nav-tabs">
-    <div class="nav-tab active" onclick="showPage('agenda')">Agenda</div>
-    <div class="nav-tab" onclick="showPage('worksheet')">Breakout worksheet</div>
-    <div class="nav-tab" onclick="showPage('prework')">Pre-work brief</div>
+    <button class="nav-tab active" onclick="showPage('agenda',this)">Agenda</button>
+    <button class="nav-tab" onclick="showPage('matrix',this)">2&times;2 matrix</button>
+    <button class="nav-tab" onclick="showPage('worksheet',this)">Breakout worksheet</button>
+    <button class="nav-tab" onclick="showPage('prework',this)">Pre-work brief</button>
   </div>
 </nav>
 
-<!-- AGENDA PAGE -->
+<!-- AGENDA -->
 <div class="page active" id="pg-agenda">
   <div class="page-title">Product offsite agenda</div>
-  <div class="page-meta">May 18–20 &middot; Denver &middot; 12 attendees</div>
+  <div class="page-meta">May 18&ndash;20 &middot; Denver &middot; 12 attendees</div>
 
-  <div class="dm-bar"><strong>Decision model:</strong> CPO holds final call on bet prioritization. Product leaders facilitate structured debate. PMs own their bet narratives through Day 3. All voices shape &mdash; one voice decides.</div>
+  <div class="dm-bar"><strong>Decision model:</strong> CPO holds final call on bet prioritization. Sr. director of strategy facilitates all sessions. Product leaders drive structured debate. PMs own their bet narratives through Day 3. All voices shape &mdash; one voice decides.</div>
 
   <div class="pw-bar">
     <div class="pw-lbl">Before you arrive &mdash; pre-work</div>
     <div class="pw-grid">
-      <div class="pw-item"><b>All:</b> Read the market context brief</div>
-      <div class="pw-item"><b>PMs:</b> Prepare 8-min lightning talk</div>
-      <div class="pw-item"><b>Design:</b> Bring customer journey sketches</div>
-      <div class="pw-item"><b>Leaders:</b> Identify your biggest strategic question</div>
+      <div class="pw-item"><b>All:</b>&nbsp;Read the market context brief</div>
+      <div class="pw-item"><b>All:</b>&nbsp;Prepare your biggest strategic question</div>
+      <div class="pw-item"><b>PMs:</b>&nbsp;Prepare 8-min lightning talk</div>
+      <div class="pw-item"><b>Leaders:</b>&nbsp;Identify your walk-away criteria</div>
     </div>
   </div>
 
   <div class="oc-box">
     <h3>Core outcomes</h3>
     <div class="oc-grid">
-      <div class="oc-item"><div class="oc-dot"></div>2–4 prioritized strategic bets</div>
-      <div class="oc-item"><div class="oc-dot"></div>Clear "why Bitly wins" POV</div>
-      <div class="oc-item"><div class="oc-dot"></div>60–90 day signal-gathering plan</div>
+      <div class="oc-item"><div class="oc-dot"></div>2&ndash;4 prioritized strategic bets</div>
+      <div class="oc-item"><div class="oc-dot"></div>Clear &ldquo;why Bitly wins&rdquo; POV</div>
+      <div class="oc-item"><div class="oc-dot"></div>60&ndash;90 day signal-gathering plan</div>
       <div class="oc-item"><div class="oc-dot"></div>Inputs for GLT+ August offsite</div>
     </div>
   </div>
@@ -187,271 +234,212 @@
     <button class="day-tab" onclick="showDay(3)">Day 3 &mdash; May 20<br><span style="font-weight:400">Convergence + decisions</span></button>
   </div>
 
+  <!-- DAY 1 -->
   <div class="day-panel active" id="day1">
     <div class="day-theme">Get aligned on reality before jumping to solutions</div>
-    <div class="sec-lbl">Morning &middot; 9:00 &ndash; 12:30</div>
-
-    <div class="session" onclick="tog(this)">
-      <div class="sh"><div class="s-time">9:00 AM</div><div class="s-mid"><div class="s-title">Welcome &amp; framing</div><div class="s-roles"><span class="rp rp-cpo">CPO leads</span><span class="rp rp-all">all attend</span></div></div><div class="s-right"><div class="s-dur">30 min</div><div class="s-chev">&#9654;</div></div></div>
-      <div class="sb"><ul><li>Why we're here &amp; what success looks like</li><li>Decision model: CPO has final call on prioritization</li><li>Norms for debate: healthy tension is the goal, not consensus</li></ul></div>
-    </div>
-
-    <div class="session" onclick="tog(this)">
-      <div class="sh"><div class="s-time">9:30 AM</div><div class="s-mid"><div class="s-title">Business + product reality</div><div class="s-roles"><span class="rp rp-lead">leaders present</span><span class="rp rp-all">all discuss</span></div></div><div class="s-right"><div class="s-dur">45 min</div><div class="s-chev">&#9654;</div></div></div>
-      <div class="sb"><ul><li>Key metrics: growth, retention, monetization</li><li>What's working / not working</li><li>Market context &amp; competitive landscape</li></ul><div class="out-lbl">Output</div><div class="out-txt">Shared baseline — no one argues from different facts after this</div></div>
-    </div>
-
-    <div class="session" onclick="tog(this)">
-      <div class="sh"><div class="s-time">10:15 AM</div><div class="s-mid"><div class="s-title">PM lightning insights</div><div class="s-roles"><span class="rp rp-pm">PMs present</span><span class="rp rp-design">design observes</span><span class="rp rp-lead">leaders listen</span></div></div><div class="s-right"><div class="s-dur">75 min</div><div class="s-chev">&#9654;</div></div></div>
-      <div class="sb">8 PMs &times; ~8&ndash;9 min. Customer segment &middot; top problems &amp; evidence &middot; biggest opportunity.<div class="design-note">Designer: note where pain points have an experience dimension &mdash; flag for synthesis.</div><div class="out-lbl">Output</div><div class="out-txt">Raw inputs for opportunity mapping</div></div>
-    </div>
-
+    <div class="sec-lbl">Morning &middot; 9:00&ndash;12:30</div>
+    <div class="session" onclick="tog(this)"><div class="sh"><div class="s-time">9:00 AM</div><div class="s-mid"><div class="s-title">Welcome &amp; framing</div><div class="s-roles"><span class="rp rp-cpo">CPO leads</span><span class="rp rp-strat">strategy facilitates</span><span class="rp rp-all">all attend</span></div></div><div class="s-right"><div class="s-dur">30 min</div><div class="s-chev">&#9654;</div></div></div><div class="sb"><ul><li>Why we&rsquo;re here &amp; what success looks like</li><li>Decision model: CPO has final call on prioritization</li><li>Norms for debate: healthy tension is the goal, not consensus</li><li>Everyone shares their biggest strategic question coming in</li></ul></div></div>
+    <div class="session" onclick="tog(this)"><div class="sh"><div class="s-time">9:30 AM</div><div class="s-mid"><div class="s-title">Business + product reality</div><div class="s-roles"><span class="rp rp-lead">leaders present</span><span class="rp rp-strat">strategy facilitates</span><span class="rp rp-all">all discuss</span></div></div><div class="s-right"><div class="s-dur">45 min</div><div class="s-chev">&#9654;</div></div></div><div class="sb"><ul><li>Key metrics: growth, retention, monetization</li><li>What&rsquo;s working / not working</li><li>Market context &amp; competitive landscape</li></ul><div class="out-lbl">Output</div><div class="out-txt">Shared baseline &mdash; no one argues from different facts after this</div></div></div>
+    <div class="session" onclick="tog(this)"><div class="sh"><div class="s-time">10:15 AM</div><div class="s-mid"><div class="s-title">PM lightning insights</div><div class="s-roles"><span class="rp rp-pm">PMs present</span><span class="rp rp-strat">strategy times</span><span class="rp rp-all">all listen</span></div></div><div class="s-right"><div class="s-dur">75 min</div><div class="s-chev">&#9654;</div></div></div><div class="sb">8 PMs &times; ~8&ndash;9 min. Customer segment &middot; top problems &amp; evidence &middot; biggest opportunity.<div class="out-lbl">Output</div><div class="out-txt">Raw inputs for opportunity mapping</div></div></div>
     <div class="break-row"><div class="bl"></div><div class="blab">Break &middot; 15 min</div><div class="bl"></div></div>
-
-    <div class="session" onclick="tog(this)">
-      <div class="sh"><div class="s-time">11:45 AM</div><div class="s-mid"><div class="s-title">Synthesis: what did we hear?</div><div class="s-roles"><span class="rp rp-all">all contribute</span><span class="rp rp-design">design clusters themes</span></div></div><div class="s-right"><div class="s-dur">45 min</div><div class="s-chev">&#9654;</div></div></div>
-      <div class="sb">Cluster themes live. Identify: repeated pain &middot; surprising insights &middot; gaps.<div class="design-note">Designer leads affinity mapping &mdash; Figjam or physical stickies.</div><div class="out-lbl">Output</div><div class="out-txt">Top customer problems &middot; Initial opportunity clusters</div></div>
-    </div>
-
-    <div class="break-row"><div class="bl"></div><div class="blab">Lunch &middot; 12:30 &ndash; 1:30</div><div class="bl"></div></div>
-
-    <div class="sec-lbl">Afternoon &middot; 1:30 &ndash; 5:00</div>
-
-    <div class="session" onclick="tog(this)">
-      <div class="sh"><div class="s-time">1:30 PM</div><div class="s-mid"><div class="s-title">Opportunity landscape</div><div class="s-roles"><span class="rp rp-all">all contribute</span><span class="rp rp-cpo">strategy leads</span></div></div><div class="s-right"><div class="s-dur">90 min</div><div class="s-chev">&#9654;</div></div></div>
-      <div class="sb">Frame the big spaces:<br><br><span class="pill pd1">Data &amp; attribution</span><span class="pill pd1">Creator economy</span><span class="pill pd1">QRCG funnel</span><span class="pill pd1">Partnerships</span><span class="pill pd1">SMS / Textla</span><span class="pill pd1">Pricing &amp; packaging</span><div class="out-lbl">Output</div><div class="out-txt">4–6 priority opportunity spaces</div></div>
-    </div>
-
+    <div class="session" onclick="tog(this)"><div class="sh"><div class="s-time">11:45 AM</div><div class="s-mid"><div class="s-title">Synthesis: what did we hear?</div><div class="s-roles"><span class="rp rp-strat">strategy facilitates</span><span class="rp rp-all">all contribute</span></div></div><div class="s-right"><div class="s-dur">45 min</div><div class="s-chev">&#9654;</div></div></div><div class="sb">Cluster themes live. Identify repeated pain, surprising insights, and gaps.<div class="out-lbl">Output</div><div class="out-txt">Top customer problems &middot; Initial opportunity clusters</div></div></div>
+    <div class="break-row"><div class="bl"></div><div class="blab">Lunch &middot; 12:30&ndash;1:30</div><div class="bl"></div></div>
+    <div class="sec-lbl">Afternoon &middot; 1:30&ndash;5:00</div>
+    <div class="session" onclick="tog(this)"><div class="sh"><div class="s-time">1:30 PM</div><div class="s-mid"><div class="s-title">Opportunity landscape</div><div class="s-roles"><span class="rp rp-strat">strategy leads</span><span class="rp rp-all">all contribute</span></div></div><div class="s-right"><div class="s-dur">90 min</div><div class="s-chev">&#9654;</div></div></div><div class="sb">Frame the big spaces:<br><br><span class="pill">Data &amp; attribution</span><span class="pill">Creator economy</span><span class="pill">QRCG funnel</span><span class="pill">Partnerships</span><span class="pill">SMS / Textla</span><span class="pill">Pricing &amp; packaging</span><div class="out-lbl">Output</div><div class="out-txt">4&ndash;6 priority opportunity spaces</div></div></div>
     <div class="break-row"><div class="bl"></div><div class="blab">Break &middot; 15 min</div><div class="bl"></div></div>
-
-    <div class="session" onclick="tog(this)">
-      <div class="sh"><div class="s-time">3:15 PM</div><div class="s-mid"><div class="s-title">Assign breakout teams</div><div class="s-roles"><span class="rp rp-lead">leaders assign</span><span class="rp rp-all">all receive</span></div></div><div class="s-right"><div class="s-dur">45 min</div><div class="s-chev">&#9654;</div></div></div>
-      <div class="sb">3 groups of 4–5. Designer distributed across groups for balance. Introduce breakout worksheet &amp; Day 2 presentation format.</div>
-    </div>
-
-    <div class="session" onclick="tog(this)">
-      <div class="sh"><div class="s-time">4:00 PM</div><div class="s-mid"><div class="s-title">Customer lens sharpening</div><div class="s-roles"><span class="rp rp-all">all contribute</span><span class="rp rp-design">design facilitates</span></div></div><div class="s-right"><div class="s-dur">60 min</div><div class="s-chev">&#9654;</div></div></div>
-      <div class="sb"><ul><li>Highest-value segments?</li><li>Where are we under-serving?</li><li>Where are we over-investing?</li></ul><div class="design-note">Designer brings customer journey sketches to anchor discussion.</div><div class="out-lbl">Output</div><div class="out-txt">2–3 priority customer segments</div></div>
-    </div>
-
-    <div class="daily-close"><div class="dc-lbl">Daily close &middot; 5 min</div><div class="dc-items"><div>What shifted today?</div><div>What are we carrying into tomorrow?</div><div>Any misalignment to surface before dinner?</div></div></div>
+    <div class="session" onclick="tog(this)"><div class="sh"><div class="s-time">3:15 PM</div><div class="s-mid"><div class="s-title">Assign breakout teams</div><div class="s-roles"><span class="rp rp-strat">strategy assigns</span><span class="rp rp-all">all receive</span></div></div><div class="s-right"><div class="s-dur">45 min</div><div class="s-chev">&#9654;</div></div></div><div class="sb">3 groups of 4&ndash;5. Introduce breakout worksheet &amp; Day 2 presentation format.</div></div>
+    <div class="session" onclick="tog(this)"><div class="sh"><div class="s-time">4:00 PM</div><div class="s-mid"><div class="s-title">Customer lens sharpening</div><div class="s-roles"><span class="rp rp-strat">strategy facilitates</span><span class="rp rp-all">all contribute</span></div></div><div class="s-right"><div class="s-dur">60 min</div><div class="s-chev">&#9654;</div></div></div><div class="sb"><ul><li>Who are our highest-value segments?</li><li>Where are we under-serving?</li><li>Where are we over-investing?</li></ul><div class="out-lbl">Output</div><div class="out-txt">2&ndash;3 priority customer segments</div></div></div>
+    <div class="daily-close"><div class="dc-lbl">Daily close &middot; 5 min &middot; strategy facilitates</div><div class="dc-items"><div>What shifted today?</div><div>What are we carrying into tomorrow?</div><div>Any misalignment to surface before dinner?</div></div></div>
     <div class="break-row"><div class="bl"></div><div class="blab">Team dinner</div><div class="bl"></div></div>
   </div>
 
+  <!-- DAY 2 -->
   <div class="day-panel" id="day2">
     <div class="day-theme">Go deep, generate, and pressure test ideas</div>
-    <div class="sec-lbl">Morning &middot; 9:00 &ndash; 12:30</div>
-
-    <div class="session" onclick="tog(this)">
-      <div class="sh"><div class="s-time">9:00 AM</div><div class="s-mid"><div class="s-title">Breakouts: define the bets</div><div class="s-roles"><span class="rp rp-pm">PMs drive</span><span class="rp rp-design">design contributes</span><span class="rp rp-lead">leaders advise</span></div></div><div class="s-right"><div class="s-dur">2.5 hrs</div><div class="s-chev">&#9654;</div></div></div>
-      <div class="sb">Each group completes the breakout worksheet (7 outputs).<div class="design-note">Designer: sketch 1–2 rough concept flows per bet. Anchor the presentation visually.</div><div class="out-lbl">Output</div><div class="out-txt">1–2 strong bets per group + completed worksheet</div></div>
-    </div>
-
-    <div class="break-row"><div class="bl"></div><div class="blab">Lunch &middot; 12:30 &ndash; 1:30</div><div class="bl"></div></div>
-
-    <div class="sec-lbl">Afternoon &middot; 1:30 &ndash; 5:30</div>
-
-    <div class="session" onclick="tog(this)">
-      <div class="sh"><div class="s-time">1:30 PM</div><div class="s-mid"><div class="s-title">Shareouts</div><div class="s-roles"><span class="rp rp-pm">PMs present</span><span class="rp rp-design">design shows concepts</span></div></div><div class="s-right"><div class="s-dur">90 min</div><div class="s-chev">&#9654;</div></div></div>
-      <div class="sb">~20–25 min per group. Follow worksheet structure. Clarifying questions only — debate comes next.<div class="out-lbl">No debate yet</div></div>
-    </div>
-
-    <div class="session" onclick="tog(this)">
-      <div class="sh"><div class="s-time">3:00 PM</div><div class="s-mid"><div class="s-title">Structured debate</div><div class="s-roles"><span class="rp rp-lead">leaders push</span><span class="rp rp-all">all defend</span></div></div><div class="s-right"><div class="s-dur">90 min</div><div class="s-chev">&#9654;</div></div></div>
-      <div class="sb"><ul><li>Is this actually big enough to matter?</li><li>Is it differentiated — or could anyone build this?</li><li>Why us vs. competitors?</li><li>What's hand-wavy or assumed?</li></ul></div>
-    </div>
-
+    <div class="sec-lbl">Morning &middot; 9:00&ndash;12:30</div>
+    <div class="session" onclick="tog(this)"><div class="sh"><div class="s-time">9:00 AM</div><div class="s-mid"><div class="s-title">Breakouts: define the bets</div><div class="s-roles"><span class="rp rp-all">all contribute equally</span><span class="rp rp-strat">strategy floats</span></div></div><div class="s-right"><div class="s-dur">2.5 hrs</div><div class="s-chev">&#9654;</div></div></div><div class="sb">Each group completes the breakout worksheet (7 outputs). Everyone can sketch, prototype, and build &mdash; use whatever tools help the thinking.<div class="out-lbl">Use AI intentionally</div><div class="out-txt">Prototype flows &middot; Draft positioning &middot; Explore &ldquo;why not&rdquo; &middot; Pressure-test assumptions</div><div class="out-lbl">Output</div><div class="out-txt">1&ndash;2 strong bets per group + completed worksheet</div></div></div>
+    <div class="break-row"><div class="bl"></div><div class="blab">Lunch &middot; 12:30&ndash;1:30</div><div class="bl"></div></div>
+    <div class="sec-lbl">Afternoon &middot; 1:30&ndash;5:30</div>
+    <div class="session" onclick="tog(this)"><div class="sh"><div class="s-time">1:30 PM</div><div class="s-mid"><div class="s-title">Shareouts</div><div class="s-roles"><span class="rp rp-all">all present</span><span class="rp rp-strat">strategy times</span></div></div><div class="s-right"><div class="s-dur">90 min</div><div class="s-chev">&#9654;</div></div></div><div class="sb">~20&ndash;25 min per group. Follow worksheet structure. Clarifying questions only &mdash; debate comes next.<div class="out-lbl">No debate yet</div></div></div>
+    <div class="session" onclick="tog(this)"><div class="sh"><div class="s-time">3:00 PM</div><div class="s-mid"><div class="s-title">Structured debate</div><div class="s-roles"><span class="rp rp-strat">strategy facilitates</span><span class="rp rp-lead">leaders push</span><span class="rp rp-all">all defend</span></div></div><div class="s-right"><div class="s-dur">90 min</div><div class="s-chev">&#9654;</div></div></div><div class="sb"><ul><li>Is this actually big enough to matter?</li><li>Is it differentiated &mdash; or could anyone build this?</li><li>Why us vs. competitors?</li><li>What&rsquo;s hand-wavy or assumed?</li></ul><div style="margin-top:8px;font-size:12px;font-style:italic;color:#999">This should feel like healthy tension. Disagreement is productive. Politeness is not the goal.</div></div></div>
     <div class="break-row"><div class="bl"></div><div class="blab">Break &middot; 15 min</div><div class="bl"></div></div>
-
-    <div class="session" onclick="tog(this)">
-      <div class="sh"><div class="s-time">4:45 PM</div><div class="s-mid"><div class="s-title">Refine + strengthen bets</div><div class="s-roles"><span class="rp rp-pm">PMs tighten</span><span class="rp rp-design">design refines concepts</span></div></div><div class="s-right"><div class="s-dur">60 min</div><div class="s-chev">&#9654;</div></div></div>
-      <div class="sb">Incorporate feedback, tighten narratives, update worksheets for Day 3.</div>
-    </div>
-
-    <div class="daily-close"><div class="dc-lbl">Daily close &middot; 5 min</div><div class="dc-items"><div>Which bets are we most excited / nervous about?</div><div>Any overnight homework before Day 3?</div></div></div>
+    <div class="session" onclick="tog(this)"><div class="sh"><div class="s-time">4:45 PM</div><div class="s-mid"><div class="s-title">Refine + strengthen bets</div><div class="s-roles"><span class="rp rp-all">all refine</span></div></div><div class="s-right"><div class="s-dur">60 min</div><div class="s-chev">&#9654;</div></div></div><div class="sb">Incorporate feedback, tighten narratives, update worksheets for Day 3 final presentations.</div></div>
+    <div class="daily-close"><div class="dc-lbl">Daily close &middot; 5 min &middot; strategy facilitates</div><div class="dc-items"><div>Which bets are we most excited / nervous about?</div><div>Any overnight homework before Day 3?</div></div></div>
   </div>
 
+  <!-- DAY 3 -->
   <div class="day-panel" id="day3">
     <div class="day-theme">Choose, commit, and define next steps</div>
-    <div class="sec-lbl">Morning &middot; 9:00 &ndash; 12:30</div>
-
-    <div class="session" onclick="tog(this)">
-      <div class="sh"><div class="s-time">9:00 AM</div><div class="s-mid"><div class="s-title">Final presentations</div><div class="s-roles"><span class="rp rp-pm">PMs present</span><span class="rp rp-design">design shows concepts</span></div></div><div class="s-right"><div class="s-dur">60 min</div><div class="s-chev">&#9654;</div></div></div>
-      <div class="sb">~15 min per group. Short, sharp, refined from Day 2 feedback.</div>
-    </div>
-
-    <div class="session" onclick="tog(this)">
-      <div class="sh"><div class="s-time">10:00 AM</div><div class="s-mid"><div class="s-title">Scoring &amp; prioritization</div><div class="s-roles"><span class="rp rp-all">silent scoring first</span><span class="rp rp-lead">leaders discuss</span></div></div><div class="s-right"><div class="s-dur">60 min</div><div class="s-chev">&#9654;</div></div></div>
-      <div class="sb">
-        <table class="scoring-table">
-          <tr><th>Criteria</th><th>Description</th></tr>
-          <tr><td>Customer value</td><td>How painful / important is this problem?</td></tr>
-          <tr><td>Strategic differentiation</td><td>Does Bitly have a unique right to win?</td></tr>
-          <tr><td>Revenue potential</td><td>Could this meaningfully impact revenue?</td></tr>
-          <tr><td>Time to signal</td><td>Can we validate in 3–6 months?</td></tr>
-          <tr><td>Feasibility</td><td>Can we realistically execute?</td></tr>
-          <tr><td>Focus cost</td><td>What do we NOT do if we pursue this?</td></tr>
-        </table>
-      </div>
-    </div>
-
-    <div class="session" onclick="tog(this)">
-      <div class="sh"><div class="s-time">11:00 AM</div><div class="s-mid"><div class="s-title">Decision framework</div><div class="s-roles"><span class="rp rp-cpo">CPO decides</span><span class="rp rp-lead">leaders advise</span></div></div><div class="s-right"><div class="s-dur">45 min</div><div class="s-chev">&#9654;</div></div></div>
-      <div class="sb">
-        <div class="quad-grid">
-          <div class="quad" style="background:#E1F5EE;border-color:#1D9E75"><div class="quad-lbl" style="color:#085041">Top right &mdash; commit</div><div class="quad-act" style="color:#0F6E56">High value + high differentiation</div></div>
-          <div class="quad" style="background:#FAEEDA;border-color:#EF9F27"><div class="quad-lbl" style="color:#633806">Top left &mdash; risky</div><div class="quad-act" style="color:#854F0B">High value, low differentiation</div></div>
-          <div class="quad" style="background:#E6F1FB;border-color:#378ADD"><div class="quad-lbl" style="color:#0C447C">Bottom right &mdash; explore</div><div class="quad-act" style="color:#185FA5">High differentiation, low value</div></div>
-          <div class="quad" style="background:#FCEBEB;border-color:#E24B4A"><div class="quad-lbl" style="color:#791F1F">Bottom left &mdash; kill it</div><div class="quad-act" style="color:#A32D2D">Low value + low differentiation</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="session" onclick="tog(this)">
-      <div class="sh"><div class="s-time">11:45 AM</div><div class="s-mid"><div class="s-title">Define next steps</div><div class="s-roles"><span class="rp rp-pm">PMs own bets</span><span class="rp rp-lead">leaders assign</span></div></div><div class="s-right"><div class="s-dur">45 min</div><div class="s-chev">&#9654;</div></div></div>
-      <div class="sb">For each top bet: what to learn &middot; what experiments &middot; who owns it &middot; timeline.<div class="out-lbl">Output</div><div class="out-txt">60–90 day action plan with named owners</div></div>
-    </div>
-
-    <div class="session" onclick="tog(this)">
-      <div class="sh"><div class="s-time">12:30 PM</div><div class="s-mid"><div class="s-title">Wrap-up &amp; reflection</div><div class="s-roles"><span class="rp rp-cpo">CPO closes</span><span class="rp rp-all">all share</span></div></div><div class="s-right"><div class="s-dur">30 min</div><div class="s-chev">&#9654;</div></div></div>
-      <div class="sb"><ul><li>What did we align on?</li><li>What changed from what we thought coming in?</li><li>What are we excited about? Nervous about?</li><li>How do we stay accountable to the bets we chose?</li></ul></div>
-    </div>
+    <div class="sec-lbl">Morning &middot; 9:00&ndash;12:30</div>
+    <div class="session" onclick="tog(this)"><div class="sh"><div class="s-time">9:00 AM</div><div class="s-mid"><div class="s-title">Final presentations</div><div class="s-roles"><span class="rp rp-all">all present</span><span class="rp rp-strat">strategy times</span></div></div><div class="s-right"><div class="s-dur">60 min</div><div class="s-chev">&#9654;</div></div></div><div class="sb">~15 min per group. Short, sharp, refined from Day 2 feedback.</div></div>
+    <div class="session" onclick="tog(this)"><div class="sh"><div class="s-time">10:00 AM</div><div class="s-mid"><div class="s-title">Scoring &amp; prioritization</div><div class="s-roles"><span class="rp rp-strat">strategy facilitates</span><span class="rp rp-all">silent scoring first</span></div></div><div class="s-right"><div class="s-dur">60 min</div><div class="s-chev">&#9654;</div></div></div><div class="sb">Silent scoring first, then group discussion. Scores feed into the 2&times;2 plot.<table class="scoring-table"><tr><th>Criteria</th><th>Description</th></tr><tr><td>Customer value</td><td>How painful / important is this problem?</td></tr><tr><td>Strategic differentiation</td><td>Does Bitly have a unique right to win?</td></tr><tr><td>Revenue potential</td><td>Could this meaningfully impact revenue?</td></tr><tr><td>Time to signal</td><td>Can we validate in 3&ndash;6 months?</td></tr><tr><td>Feasibility</td><td>Can we realistically execute?</td></tr><tr><td>Focus cost</td><td>What do we NOT do if we pursue this?</td></tr></table><div class="fw-refs"><div class="fw-refs-lbl">Framework references</div><div class="fw-grid"><div class="fw-item"><strong>2&times;2 prioritization matrix</strong>Value vs. differentiation &mdash; plots bets into four clear decision zones.</div><div class="fw-item"><strong>Weighted scoring</strong>Assign weights to each criterion and multiply scores for a ranked list.</div><div class="fw-item"><strong>RICE</strong>Reach &times; Impact &times; Confidence &divide; Effort. Best when reach data exists.</div><div class="fw-item"><strong>ICE scoring</strong>Impact &times; Confidence &times; Ease. Faster &mdash; good for 60&ndash;90 day planning.</div></div></div></div></div>
+    <div class="session" onclick="tog(this)"><div class="sh"><div class="s-time">11:00 AM</div><div class="s-mid"><div class="s-title">Decision framework &mdash; 2&times;2 plot</div><div class="s-roles"><span class="rp rp-cpo">CPO decides</span><span class="rp rp-strat">strategy facilitates</span><span class="rp rp-lead">leaders advise</span></div></div><div class="s-right"><div class="s-dur">45 min</div><div class="s-chev">&#9654;</div></div></div><div class="sb"><div class="quad-grid"><div class="quad" style="background:#E1F5EE;border-color:#1D9E75"><div class="quad-lbl" style="color:#085041">Top right &mdash; commit</div><div class="quad-act" style="color:#0F6E56">High value + high differentiation &rarr; go</div></div><div class="quad" style="background:#FAEEDA;border-color:#EF9F27"><div class="quad-lbl" style="color:#633806">Top left &mdash; risky</div><div class="quad-act" style="color:#854F0B">High value, low differentiation &rarr; rethink</div></div><div class="quad" style="background:#E6F1FB;border-color:#378ADD"><div class="quad-lbl" style="color:#0C447C">Bottom right &mdash; explore</div><div class="quad-act" style="color:#185FA5">High diff., low value &rarr; proceed cautiously</div></div><div class="quad" style="background:#FCEBEB;border-color:#E24B4A"><div class="quad-lbl" style="color:#791F1F">Bottom left &mdash; kill it</div><div class="quad-act" style="color:#A32D2D">Low value + low differentiation &rarr; stop</div></div></div><p style="margin-top:10px;font-size:12px;color:#888">Use the 2&times;2 Matrix tab to plot and reposition bets in real time.</p></div></div>
+    <div class="session" onclick="tog(this)"><div class="sh"><div class="s-time">11:45 AM</div><div class="s-mid"><div class="s-title">Define next steps</div><div class="s-roles"><span class="rp rp-strat">strategy captures</span><span class="rp rp-all">all own bets</span></div></div><div class="s-right"><div class="s-dur">45 min</div><div class="s-chev">&#9654;</div></div></div><div class="sb">For each top bet: what to learn &middot; experiments &middot; who owns it &middot; timeline.<div class="out-lbl">Output</div><div class="out-txt">60&ndash;90 day action plan with named owners</div></div></div>
+    <div class="session" onclick="tog(this)"><div class="sh"><div class="s-time">12:30 PM</div><div class="s-mid"><div class="s-title">Wrap-up &amp; reflection</div><div class="s-roles"><span class="rp rp-cpo">CPO closes</span><span class="rp rp-strat">strategy frames</span><span class="rp rp-all">all share</span></div></div><div class="s-right"><div class="s-dur">30 min</div><div class="s-chev">&#9654;</div></div></div><div class="sb"><ul><li>What did we align on?</li><li>What changed from what we thought coming in?</li><li>What are we excited about? Nervous about?</li><li>How do we stay accountable to the bets we chose?</li></ul></div></div>
   </div>
 </div>
 
-<!-- WORKSHEET PAGE -->
+<!-- 2x2 MATRIX -->
+<div class="page" id="pg-matrix">
+  <div class="page-title">2&times;2 bet prioritization</div>
+  <div class="page-meta">Drag bets to reposition &middot; Add new bets with the field below &middot; Click a bet to see its quadrant</div>
+  <div class="matrix-page-wrap">
+    <div class="mat-controls">
+      <input id="bet-input" placeholder="Add a bet name&hellip;" maxlength="28" onkeydown="if(event.key==='Enter')addBet()">
+      <button class="mat-btn primary" onclick="addBet()">+ Add bet</button>
+      <button class="mat-btn" onclick="resetPos()">Reset positions</button>
+      <button class="mat-btn" onclick="clearAll()">Clear all</button>
+    </div>
+    <div class="mat-outer">
+      <div class="mat-y-label">Customer value</div>
+      <div class="mat-inner">
+        <div class="matrix" id="matrix" ondragover="ev(event)" ondrop="drop(event)" onclick="placeClick(event)">
+          <div class="quadrant q-tl"><div class="q-label"><div class="ql-t">Risky</div><div class="ql-s">High value, low diff.</div></div><span class="axis-tick" style="top:4px;right:6px">High</span></div>
+          <div class="quadrant q-tr"><div class="q-label"><div class="ql-t">Commit</div><div class="ql-s">High value + high diff.</div></div></div>
+          <div class="quadrant q-bl"><div class="q-label"><div class="ql-t">Kill it</div><div class="ql-s">Low value + low diff.</div></div><span class="axis-tick" style="bottom:4px;right:6px">Low</span><span class="axis-tick" style="bottom:4px;left:6px">Low</span></div>
+          <div class="quadrant q-br"><div class="q-label"><div class="ql-t">Explore</div><div class="ql-s">High diff., low value</div></div><span class="axis-tick" style="bottom:4px;right:6px">High</span></div>
+        </div>
+        <div class="mat-x-label">Differentiation (right to win)</div>
+      </div>
+    </div>
+    <div class="mat-legend" id="mat-legend"></div>
+    <div class="mat-info" id="mat-info">Click anywhere on the matrix to place a bet, or drag existing bets to reposition.</div>
+    <div class="mat-reset"><button class="mat-btn" onclick="resetPos()">Reset to defaults</button></div>
+  </div>
+</div>
+
+<!-- WORKSHEET -->
 <div class="page" id="pg-worksheet">
   <div class="page-title">Define the bet</div>
   <div class="page-meta">Day 2 breakout worksheet &middot; Complete as a group</div>
-
-  <div class="meta-fields">
-    <div class="mf"><label>Group</label><div class="line"></div></div>
-    <div class="mf"><label>Opportunity</label><div class="line" style="min-width:160px"></div></div>
-    <div class="mf"><label>Members</label><div class="line" style="min-width:180px"></div></div>
+  <div class="ws-meta">
+    <div class="ws-mf"><label>Group</label><div class="ws-line"></div></div>
+    <div class="ws-mf"><label>Opportunity</label><div class="ws-line" style="min-width:160px"></div></div>
+    <div class="ws-mf"><label>Members</label><div class="ws-line" style="min-width:180px"></div></div>
   </div>
-
-  <div class="ws-section">
-    <div class="ws-hdr" style="background:#EEEDFE"><div class="ws-num" style="background:#534AB7;color:#fff">1</div><div class="ws-title" style="color:#3C3489">Target customer</div><div class="ws-hint" style="color:#7F77DD">Be specific — not "marketers"</div></div>
-    <div class="ws-body"><div class="ws-prompt">Who exactly is this for? Name the role, company size, context.</div><div class="ws-area">Write here…</div></div>
-  </div>
-
-  <div class="ws-section">
-    <div class="ws-hdr" style="background:#E6F1FB"><div class="ws-num" style="background:#185FA5;color:#fff">2</div><div class="ws-title" style="color:#0C447C">Core problem</div><div class="ws-hint" style="color:#378ADD">Painful and real — not assumed</div></div>
-    <div class="ws-body"><div class="ws-prompt">What is the specific, painful problem this customer faces? Quote a customer if you can.</div><div class="ws-area tall">Write here…</div><div class="design-note" style="margin-top:10px"><strong>Designer:</strong> sketch the moment of friction.</div></div>
-  </div>
-
-  <div class="ws-section">
-    <div class="ws-hdr" style="background:#FAECE7"><div class="ws-num" style="background:#993C1D;color:#fff">3</div><div class="ws-title" style="color:#712B13">Why Bitly wins</div><div class="ws-hint" style="color:#D85A30">Hardest and most important</div></div>
-    <div class="ws-body"><div class="ws-prompt">What is our unfair advantage? Data? Distribution? Brand? "We can build it" is not a moat.</div><div class="ws-area tall">Write here…</div><div class="two-col" style="margin-top:12px"><div><div class="fld-lbl">Competitors</div><div class="ws-area">Write here…</div></div><div><div class="fld-lbl">Why we beat them</div><div class="ws-area">Write here…</div></div></div></div>
-  </div>
-
-  <div class="ws-section">
-    <div class="ws-hdr" style="background:#E1F5EE"><div class="ws-num" style="background:#0F6E56;color:#fff">4</div><div class="ws-title" style="color:#085041">Product concept</div><div class="ws-hint" style="color:#1D9E75">The wedge, not the vision</div></div>
-    <div class="ws-body"><div class="ws-prompt">Smallest, sharpest version we could ship. What does it do, specifically?</div><div class="ws-area tall">Write here…</div><div class="ws-sketch">Sketch / concept flow</div></div>
-  </div>
-
-  <div class="ws-section">
-    <div class="ws-hdr" style="background:#FAEEDA"><div class="ws-num" style="background:#854F0B;color:#fff">5</div><div class="ws-title" style="color:#633806">Success metric</div><div class="ws-hint" style="color:#BA7517">One primary, one secondary</div></div>
-    <div class="ws-body"><div class="two-col"><div><div class="fld-lbl">Primary metric</div><div class="ws-area">Write here…</div></div><div><div class="fld-lbl">Secondary / guardrail</div><div class="ws-area">Write here…</div></div></div></div>
-  </div>
-
-  <div class="ws-section">
-    <div class="ws-hdr" style="background:#F1EFE8"><div class="ws-num" style="background:#5F5E5A;color:#fff">6</div><div class="ws-title" style="color:#444441">Risks &amp; assumptions</div><div class="ws-hint" style="color:#888780">What must be true?</div></div>
-    <div class="ws-body"><div class="two-col"><div><div class="fld-lbl">Key assumptions</div><div class="ws-area tall">Write here…</div></div><div><div class="fld-lbl">Key risks</div><div class="ws-area tall">Write here…</div></div></div></div>
-  </div>
-
-  <div class="ws-section">
-    <div class="ws-hdr" style="background:#FCEBEB"><div class="ws-num" style="background:#A32D2D;color:#fff">7</div><div class="ws-title" style="color:#791F1F">Kill conditions</div><div class="ws-hint" style="color:#E24B4A">What would make us stop?</div></div>
-    <div class="ws-body"><div class="ws-prompt">If we commit, what do we need to see in 60–90 days to know this is working — or to kill it?</div><div class="ws-area tall">Write here…</div></div>
-  </div>
+  <div class="ws-sec"><div class="ws-hdr" style="background:#EEEDFE"><div class="ws-num" style="background:#534AB7">1</div><div class="ws-title" style="color:#3C3489">Target customer</div><div class="ws-hint" style="color:#7F77DD">Be specific &mdash; not &ldquo;marketers&rdquo;</div></div><div class="ws-body"><div class="ws-prompt">Who exactly is this for? Name the role, company size, context.</div><div class="ws-area">Write here&hellip;</div></div></div>
+  <div class="ws-sec"><div class="ws-hdr" style="background:#E6F1FB"><div class="ws-num" style="background:#185FA5">2</div><div class="ws-title" style="color:#0C447C">Core problem</div><div class="ws-hint" style="color:#378ADD">Painful and real &mdash; not assumed</div></div><div class="ws-body"><div class="ws-prompt">What is the specific, painful problem this customer faces? Quote a customer if you can.</div><div class="ws-area tall">Write here&hellip;</div></div></div>
+  <div class="ws-sec"><div class="ws-hdr" style="background:#FAECE7"><div class="ws-num" style="background:#993C1D">3</div><div class="ws-title" style="color:#712B13">Why Bitly wins</div><div class="ws-hint" style="color:#D85A30">Hardest and most important</div></div><div class="ws-body"><div class="ws-prompt">What is our unfair advantage? Data? Distribution? Brand? &ldquo;We can build it&rdquo; is not a moat.</div><div class="ws-area tall">Write here&hellip;</div><div class="ws-two" style="margin-top:12px"><div><div class="ws-flbl">Competitors</div><div class="ws-area">Write here&hellip;</div></div><div><div class="ws-flbl">Why we beat them</div><div class="ws-area">Write here&hellip;</div></div></div></div></div>
+  <div class="ws-sec"><div class="ws-hdr" style="background:#E1F5EE"><div class="ws-num" style="background:#0F6E56">4</div><div class="ws-title" style="color:#085041">Product concept</div><div class="ws-hint" style="color:#1D9E75">The wedge, not the vision</div></div><div class="ws-body"><div class="ws-prompt">Smallest, sharpest version we could ship. What does it do, specifically?</div><div class="ws-area tall">Write here&hellip;</div><div class="ws-sketch">Sketch / concept flow</div></div></div>
+  <div class="ws-sec"><div class="ws-hdr" style="background:#FAEEDA"><div class="ws-num" style="background:#854F0B">5</div><div class="ws-title" style="color:#633806">Success metric</div><div class="ws-hint" style="color:#BA7517">One primary, one secondary</div></div><div class="ws-body"><div class="ws-two"><div><div class="ws-flbl">Primary metric</div><div class="ws-area">Write here&hellip;</div></div><div><div class="ws-flbl">Secondary / guardrail</div><div class="ws-area">Write here&hellip;</div></div></div></div></div>
+  <div class="ws-sec"><div class="ws-hdr" style="background:#F1EFE8"><div class="ws-num" style="background:#5F5E5A">6</div><div class="ws-title" style="color:#444441">Risks &amp; assumptions</div><div class="ws-hint" style="color:#888780">What must be true?</div></div><div class="ws-body"><div class="ws-two"><div><div class="ws-flbl">Key assumptions</div><div class="ws-area tall">Write here&hellip;</div></div><div><div class="ws-flbl">Key risks</div><div class="ws-area tall">Write here&hellip;</div></div></div></div></div>
+  <div class="ws-sec"><div class="ws-hdr" style="background:#FCEBEB"><div class="ws-num" style="background:#A32D2D">7</div><div class="ws-title" style="color:#791F1F">Kill conditions</div><div class="ws-hint" style="color:#E24B4A">What would make us stop?</div></div><div class="ws-body"><div class="ws-prompt">If we commit, what do we need to see in 60&ndash;90 days to know this is working &mdash; or to kill it?</div><div class="ws-area tall">Write here&hellip;</div></div></div>
+  <div style="text-align:right;margin-top:28px"><button class="download-btn" onclick="printPage('worksheet')">&#8681; Download as PDF</button></div>
 </div>
 
-<!-- PREWORK PAGE -->
+<!-- PRE-WORK -->
 <div class="page" id="pg-prework">
-  <div class="eyebrow">Bitly Product Offsite &middot; May 18–20, Denver</div>
-  <h1 style="font-size:26px;font-weight:700;margin-bottom:6px">Before you arrive</h1>
-  <div class="tagline">A few hours of prep will make the difference between a great offsite and a great conversation that goes nowhere.</div>
-
-  <div class="ctx-box">
-    <h2>What we're here to do</h2>
-    <p>We're not here to review roadmaps or revisit quarterly planning. We're here to make hard strategic choices about where Bitly plays to win over the next 2–3 years.</p>
-    <p>That means arriving with a clear-eyed view of our customers, our evidence, and our honest assessment of where we have a real right to win — not just where we'd like to compete.</p>
-  </div>
-
-  <div class="role-sec">
-    <div class="role-hdr"><span class="rb rb-all">Everyone</span><h2>Read before arriving</h2></div>
-    <div class="task-list">
-      <div class="task"><div class="task-chk"></div><div class="task-txt"><strong>Market context brief</strong> — shared by EOD Friday. Read it in full.<div class="task-note">~15 min. Focus on competitive moves and customer behavior shifts.</div></div></div>
-      <div class="task"><div class="task-chk"></div><div class="task-txt"><strong>Come with your biggest strategic question</strong> — the one thing you most want this offsite to answer. Write it down.<div class="task-note">You'll share it in the Welcome session.</div></div></div>
-      <div class="task"><div class="task-chk"></div><div class="task-txt"><strong>Know the decision model</strong> — CPO makes final prioritization calls. Come ready to advocate hard, then commit to the outcome.</div></div>
-    </div>
-  </div>
-
-  <div class="role-sec">
-    <div class="role-hdr"><span class="rb rb-pm">Product managers (8)</span><h2>Prepare your lightning talk</h2></div>
-    <div class="task-list">
-      <div class="task"><div class="task-chk"></div><div class="task-txt"><strong>Prepare an 8–9 min talk</strong> using the template below. No slides required, but bring a visual if it helps.<div class="task-note">One sharp insight beats five hedged ones.</div></div></div>
-      <div class="task"><div class="task-chk"></div><div class="task-txt"><strong>Bring at least one direct customer quote</strong> — something a real customer said about the problem you're highlighting.<div class="task-note">Not a paraphrase. A real quote anchors the room.</div></div></div>
-      <div class="task"><div class="task-chk"></div><div class="task-txt"><strong>Know your evidence</strong> — be ready for "how do you know this is real?"</div></div>
-    </div>
-    <div class="tmpl-box">
-      <div class="tmpl-hdr">Lightning talk template (8–9 min)</div>
-      <div class="tmpl-body">
-        <div class="tr-row"><div class="tr-num">1</div><div class="tr-lbl">Customer segment</div><div class="tr-hint">Who specifically? Size, role, context. 1 min.</div></div>
-        <div class="tr-row"><div class="tr-num">2</div><div class="tr-lbl">Top 1–2 problems</div><div class="tr-hint">Painful, specific, evidenced. Quote a customer. 3 min.</div></div>
-        <div class="tr-row"><div class="tr-num">3</div><div class="tr-lbl">Evidence</div><div class="tr-hint">Data, research, calls, NPS patterns. 2 min.</div></div>
-        <div class="tr-row"><div class="tr-num">4</div><div class="tr-lbl">Biggest opportunity</div><div class="tr-hint">If we solved this well, what becomes possible? 2 min.</div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="role-sec">
-    <div class="role-hdr"><span class="rb rb-design">Lead designer (1)</span><h2>Bring the customer experience lens</h2></div>
-    <div class="task-list">
-      <div class="task"><div class="task-chk"></div><div class="task-txt"><strong>Prepare 1–2 customer journey sketches</strong> for segments you know best. Rough is fine.<div class="task-note">These anchor Day 1 customer lens sharpening. Print or bring a tablet.</div></div></div>
-      <div class="task"><div class="task-chk"></div><div class="task-txt"><strong>Set up a Figjam board</strong> (or bring stickies) — you'll facilitate the Day 1 synthesis affinity mapping.</div></div>
-      <div class="task"><div class="task-chk"></div><div class="task-txt"><strong>During Day 2 breakouts</strong>, your job is rapid concept sketching — 2–3 rough screens per bet, not polished design.</div></div>
-    </div>
-  </div>
-
-  <div class="role-sec">
-    <div class="role-hdr"><span class="rb rb-lead">Product leaders + CPO + strategy (4)</span><h2>Come with your strategic frame</h2></div>
-    <div class="task-list">
-      <div class="task"><div class="task-chk"></div><div class="task-txt"><strong>Identify your biggest strategic question</strong> — the thing you genuinely don't know. Share it in Welcome.</div></div>
-      <div class="task"><div class="task-chk"></div><div class="task-txt"><strong>Be ready to play devil's advocate</strong> on every bet — especially the ones you're most excited about.<div class="task-note">Your job in structured debate is to push, not to validate.</div></div></div>
-      <div class="task"><div class="task-chk"></div><div class="task-txt"><strong>Know your walk-away criteria</strong> — what makes a bet a clear yes or no for you? Being explicit reduces the feeling that decisions are arbitrary.</div></div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
+  <div class="pw-eyebrow">Bitly Product Offsite &middot; May 18&ndash;20, Denver</div>
+  <div class="page-title">Before you arrive</div>
+  <div class="pw-tagline">A few hours of prep will make the difference between a great offsite and a great conversation that goes nowhere.</div>
+  <div class="pw-ctx"><h2>What we&rsquo;re here to do</h2><p>We&rsquo;re not here to review roadmaps or revisit quarterly planning. We&rsquo;re here to make hard strategic choices about where Bitly plays to win over the next 2&ndash;3 years.</p><p>That means arriving with a clear-eyed view of our customers, our evidence, and an honest assessment of where we have a real right to win &mdash; not just where we&rsquo;d like to compete.</p></div>
+  <div class="pw-role-sec"><div class="pw-role-hdr"><span class="pw-rb rb-all">Everyone</span><h2>Read before arriving</h2></div><div class="pw-tasks"><div class="pw-task"><div class="pw-chk"></div><div class="pw-txt"><strong>Market context brief</strong> &mdash; shared by EOD Friday. Read it in full.<div class="pw-note">~15 min. Focus on competitive moves and customer behavior shifts.</div></div></div><div class="pw-task"><div class="pw-chk"></div><div class="pw-txt"><strong>Come with your biggest strategic question</strong> &mdash; the one thing you most want this offsite to answer. Write it down.<div class="pw-note">You&rsquo;ll share it in the Welcome session.</div></div></div><div class="pw-task"><div class="pw-chk"></div><div class="pw-txt"><strong>Know the decision model</strong> &mdash; CPO makes final prioritization calls. Come ready to advocate hard, then commit to the outcome.</div></div></div></div>
+  <div class="pw-role-sec"><div class="pw-role-hdr"><span class="pw-rb rb-pm">Product managers (8)</span><h2>Prepare your lightning talk</h2></div><div class="pw-tasks"><div class="pw-task"><div class="pw-chk"></div><div class="pw-txt"><strong>Prepare an 8&ndash;9 min talk</strong> using the template below. No slides required, but bring a visual if it helps.<div class="pw-note">One sharp insight beats five hedged ones.</div></div></div><div class="pw-task"><div class="pw-chk"></div><div class="pw-txt"><strong>Bring at least one direct customer quote</strong> &mdash; something a real customer said about the problem you&rsquo;re highlighting.<div class="pw-note">Not a paraphrase. A real quote anchors the room.</div></div></div><div class="pw-task"><div class="pw-chk"></div><div class="pw-txt"><strong>Know your evidence</strong> &mdash; be ready for &ldquo;how do you know this is real?&rdquo;</div></div></div><div class="tmpl-box"><div class="tmpl-hdr">Lightning talk template (8&ndash;9 min)</div><div class="tmpl-body"><div class="tr-row"><div class="tr-num">1</div><div class="tr-lbl">Customer segment</div><div class="tr-hint">Who specifically? Size, role, context. 1 min.</div></div><div class="tr-row"><div class="tr-num">2</div><div class="tr-lbl">Top 1&ndash;2 problems</div><div class="tr-hint">Painful, specific, evidenced. Quote a customer. 3 min.</div></div><div class="tr-row"><div class="tr-num">3</div><div class="tr-lbl">Evidence</div><div class="tr-hint">Data, research, calls, NPS patterns. 2 min.</div></div><div class="tr-row"><div class="tr-num">4</div><div class="tr-lbl">Biggest opportunity</div><div class="tr-hint">If we solved this well, what becomes possible? 2 min.</div></div></div></div></div>
+  <div class="pw-role-sec"><div class="pw-role-hdr"><span class="pw-rb rb-strat">Sr. director of strategy</span><h2>Facilitate &amp; prepare</h2></div><div class="pw-tasks"><div class="pw-task"><div class="pw-chk"></div><div class="pw-txt"><strong>Own the session flow</strong> &mdash; you&rsquo;re running timing, transitions, and energy across all three days. Come with a facilitator&rsquo;s plan.</div></div><div class="pw-task"><div class="pw-chk"></div><div class="pw-txt"><strong>Set up the 2&times;2 matrix</strong> &mdash; have the live matrix tab ready for Day 3 scoring. Pre-load all bet names before the session.<div class="pw-note">Use the 2&times;2 Matrix tab in this site on a shared screen.</div></div></div><div class="pw-task"><div class="pw-chk"></div><div class="pw-txt"><strong>Prepare the synthesis board</strong> &mdash; Figjam or physical stickies for Day 1 affinity mapping during the Synthesis session.</div></div></div></div>
+  <div class="pw-role-sec"><div class="pw-role-hdr"><span class="pw-rb rb-lead">Product leaders + CPO (4)</span><h2>Come with your strategic frame</h2></div><div class="pw-tasks"><div class="pw-task"><div class="pw-chk"></div><div class="pw-txt"><strong>Identify your biggest strategic question</strong> &mdash; the thing you genuinely don&rsquo;t know. Share it in Welcome.</div></div><div class="pw-task"><div class="pw-chk"></div><div class="pw-txt"><strong>Be ready to play devil&rsquo;s advocate</strong> on every bet &mdash; especially the ones you&rsquo;re most excited about.<div class="pw-note">Your job in structured debate is to push, not to validate.</div></div></div><div class="pw-task"><div class="pw-chk"></div><div class="pw-txt"><strong>Know your walk-away criteria</strong> &mdash; what makes a bet a clear yes or no for you? Being explicit reduces the feeling that decisions are arbitrary.</div></div></div></div>
+  <div class="pw-divider"></div>
   <h2 style="font-size:16px;font-weight:700;margin-bottom:14px">Norms for the room</h2>
   <div class="norms-grid">
-    <div class="norm nd"><div class="norm-lbl">Do</div><div class="norm-txt">Push hard on ideas, not people. "I'm not convinced by the evidence" not "I don't believe you."</div></div>
-    <div class="norm nx"><div class="norm-lbl">Don't</div><div class="norm-txt">Sand down your view to avoid conflict. Politeness that obscures real disagreement kills good decisions.</div></div>
+    <div class="norm nd"><div class="norm-lbl">Do</div><div class="norm-txt">Push hard on ideas, not people. &ldquo;I&rsquo;m not convinced by the evidence&rdquo; not &ldquo;I don&rsquo;t believe you.&rdquo;</div></div>
+    <div class="norm nx"><div class="norm-lbl">Don&rsquo;t</div><div class="norm-txt">Sand down your view to avoid conflict. Politeness that obscures real disagreement kills good decisions.</div></div>
     <div class="norm nd"><div class="norm-lbl">Do</div><div class="norm-txt">Advocate strongly, then commit fully. Once we decide, we row together.</div></div>
-    <div class="norm nx"><div class="norm-lbl">Don't</div><div class="norm-txt">Re-litigate decisions after they're made. Bring disagreement into the room, not the hallway.</div></div>
-    <div class="norm nd"><div class="norm-lbl">Do</div><div class="norm-txt">Use "yes, and" during idea generation. Critique mode comes in structured debate, not breakouts.</div></div>
-    <div class="norm nx"><div class="norm-lbl">Don't</div><div class="norm-txt">Anchor to the roadmap. We're making new bets, not defending existing plans.</div></div>
+    <div class="norm nx"><div class="norm-lbl">Don&rsquo;t</div><div class="norm-txt">Re-litigate decisions after they&rsquo;re made. Bring disagreement into the room, not the hallway.</div></div>
+    <div class="norm nd"><div class="norm-lbl">Do</div><div class="norm-txt">Use &ldquo;yes, and&rdquo; during idea generation. Critique mode comes in structured debate, not breakouts.</div></div>
+    <div class="norm nx"><div class="norm-lbl">Don&rsquo;t</div><div class="norm-txt">Anchor to the roadmap. We&rsquo;re making new bets, not defending existing plans.</div></div>
   </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-top:16px;border-top:1px solid #e5e5e5"><div style="font-size:12px;color:#aaa">Bitly Product Offsite &middot; May 2025 &middot; Share with all attendees by May 14</div><button class="download-btn" style="margin-top:0" onclick="printPage('prework')">&#8681; Download as PDF</button></div>
 </div>
 
 <script>
-function showPage(id){
+function showPage(id,btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('pg-'+id).classList.add('active');
-  event.target.classList.add('active');
+  btn.classList.add('active');
 }
+function printPage(id){document.body.setAttribute('data-print',id);window.print();setTimeout(function(){document.body.removeAttribute('data-print')},500)}
 function showDay(n){
-  document.querySelectorAll('.day-tab').forEach((t,i)=>{
-    t.classList.remove('a1','a2','a3');
-    if(i===n-1) t.classList.add('a'+n);
-  });
+  document.querySelectorAll('.day-tab').forEach((t,i)=>{t.classList.remove('a1','a2','a3');if(i===n-1)t.classList.add('a'+n)});
   document.querySelectorAll('.day-panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('day'+n).classList.add('active');
 }
 function tog(el){el.classList.toggle('open')}
+
+const COLORS=['#534AB7','#0F6E56','#993C1D','#185FA5','#854F0B','#72243E','#3B6D11','#5F5E5A'];
+const DEFAULTS=[
+  {name:'Data & attribution',x:0.72,y:0.28},
+  {name:'Creator economy',x:0.38,y:0.35},
+  {name:'QRCG funnel',x:0.65,y:0.22},
+  {name:'SMS / Textla',x:0.42,y:0.55},
+  {name:'Pricing & packaging',x:0.55,y:0.6},
+  {name:'Partnerships',x:0.3,y:0.65},
+];
+let bets=DEFAULTS.map(b=>({...b}));
+let dragging=null,placing=null;
+
+function renderMatrix(){
+  const mat=document.getElementById('matrix');
+  mat.querySelectorAll('.bet-dot').forEach(d=>d.remove());
+  const leg=document.getElementById('mat-legend');
+  leg.innerHTML='';
+  bets.forEach((b,i)=>{
+    const c=COLORS[i%COLORS.length];
+    const dot=document.createElement('div');
+    dot.className='bet-dot';
+    dot.style.cssText=`background:${c};left:${b.x*100}%;top:${b.y*100}%;`;
+    dot.textContent=i+1;
+    dot.draggable=true;
+    dot.dataset.i=i;
+    dot.addEventListener('dragstart',e=>{dragging=parseInt(e.target.dataset.i);e.dataTransfer.setData('text/plain','')});
+    dot.addEventListener('click',e=>{e.stopPropagation();showBetInfo(i)});
+    mat.appendChild(dot);
+    const li=document.createElement('div');
+    li.className='mat-legend-item';
+    li.innerHTML=`<div class="mat-legend-dot" style="background:${c}"></div><span>${i+1}. ${b.name}</span>`;
+    li.onclick=()=>showBetInfo(i);
+    leg.appendChild(li);
+  });
+}
+function quadLabel(x,y){
+  if(y<0.5&&x>0.5)return'Top right — Commit';
+  if(y<0.5&&x<=0.5)return'Top left — Risky';
+  if(y>=0.5&&x>0.5)return'Bottom right — Explore';
+  return'Bottom left — Kill it';
+}
+function showBetInfo(i){
+  document.getElementById('mat-info').textContent=`${i+1}. ${bets[i].name} → ${quadLabel(bets[i].x,bets[i].y)}`;
+}
+function matBounds(){return document.getElementById('matrix').getBoundingClientRect()}
+function ev(e){e.preventDefault()}
+function drop(e){
+  e.preventDefault();
+  if(dragging===null)return;
+  const r=matBounds();
+  bets[dragging].x=Math.min(Math.max((e.clientX-r.left)/r.width,0.05),0.95);
+  bets[dragging].y=Math.min(Math.max((e.clientY-r.top)/r.height,0.05),0.95);
+  showBetInfo(dragging);dragging=null;renderMatrix();
+}
+function placeClick(e){
+  if(e.target.classList.contains('bet-dot')||placing===null)return;
+  const r=matBounds();
+  bets[placing].x=Math.min(Math.max((e.clientX-r.left)/r.width,0.05),0.95);
+  bets[placing].y=Math.min(Math.max((e.clientY-r.top)/r.height,0.05),0.95);
+  placing=null;
+  document.getElementById('mat-info').textContent='Bet placed. Click another to reposition, or add a new one.';
+  renderMatrix();
+}
+function addBet(){
+  const inp=document.getElementById('bet-input');
+  const name=inp.value.trim();if(!name)return;
+  bets.push({name,x:0.25+Math.random()*0.5,y:0.25+Math.random()*0.5});
+  inp.value='';placing=bets.length-1;
+  document.getElementById('mat-info').textContent=`Click on the matrix to place "${name}"`;
+  renderMatrix();
+}
+function resetPos(){bets=DEFAULTS.map(b=>({...b}));placing=null;document.getElementById('mat-info').textContent='Positions reset to defaults.';renderMatrix()}
+function clearAll(){bets=[];placing=null;document.getElementById('mat-info').textContent='All bets cleared. Add new ones above.';renderMatrix()}
+document.addEventListener('dragend',()=>{dragging=null;renderMatrix()});
+renderMatrix();
 </script>
 </body>
 </html>
