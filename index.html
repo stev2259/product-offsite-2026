@@ -256,7 +256,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <button class="nav-tab" onclick="showPage('logistics',this)">Logistics</button>
     <button class="nav-tab" onclick="showPage('prework',this)">Pre-work brief</button>
     <button class="nav-tab" onclick="showPage('worksheet',this)">Breakout worksheet</button>
-    <button class="nav-tab" onclick="showPage('matrix',this)">2&times;2 matrix</button>
   </div>
 </nav>
 
@@ -342,35 +341,51 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="session" onclick="tog(this)"><div class="sh"><div class="s-time">11:55 AM</div><div class="s-mid"><div class="s-title">Async Discovery Expectations</div><div class="s-roles"><span class="rp rp-cpo">Kelsey</span><span class="rp rp-strat">Raquel</span></div></div><div class="s-right"><div class="s-dur">25 min</div><div class="s-chev">&#9654;</div></div></div><div class="sb"><div style="font-style:italic;color:#777570;margin-bottom:8px">How we work between now and the betting table</div><ul><li>PMs own discovery on future bets &mdash; every committed bet has a PM owner</li><li>4-week check-in cadence &mdash; bring evidence, not opinions</li><li>Kill criteria stated up front: &ldquo;what would make us stop&rdquo; matters as much as &ldquo;what would make us continue&rdquo;</li><li>Graduation to &ldquo;Now/Next&rdquo; happens at the betting table</li></ul></div></div>
     <div class="session" onclick="tog(this)"><div class="sh"><div class="s-time">12:20 PM</div><div class="s-mid"><div class="s-title">Commitments &amp; Close</div><div class="s-roles"><span class="rp rp-strat">Raquel</span><span class="rp rp-cpo">Kelsey</span></div></div><div class="s-right"><div class="s-dur">10 min</div><div class="s-chev">&#9654;</div></div></div><div class="sb"><ul><li>What did we align on? What are we excited about? Nervous about?</li><li>How will new ways of working be reinforced going forward?</li></ul></div></div>
   </div>
-</div>
 
-<!-- 2x2 MATRIX -->
-<div class="page" id="pg-matrix">
-  <div class="page-title">2&times;2 bet prioritization</div>
-  <div class="page-meta">Drag bets to reposition &middot; Add new bets with the field below &middot; Click a bet to see its quadrant</div>
-  <div class="matrix-page-wrap">
-    <div class="mat-controls">
-      <input id="bet-input" placeholder="Add a bet name&hellip;" maxlength="28" onkeydown="if(event.key==='Enter')addBet()">
-      <button class="mat-btn primary" onclick="addBet()">+ Add bet</button>
-      <button class="mat-btn" onclick="resetPos()">Reset positions</button>
-      <button class="mat-btn" onclick="clearAll()">Clear all</button>
+  <div class="log-section">
+    <div class="log-section-hdr">
+      <div class="log-section-title">&#128204; Tips</div>
     </div>
-    <div class="mat-outer">
-      <div class="mat-y-label">Customer value</div>
-      <div class="mat-inner">
-        <div class="matrix" id="matrix" ondragover="ev(event)" ondrop="drop(event)" onclick="placeClick(event)">
-          <div class="quadrant q-tl"><div class="q-label"><div class="ql-t">Risky</div><div class="ql-s">High value, low diff.</div></div><span class="axis-tick" style="top:4px;right:6px">High</span></div>
-          <div class="quadrant q-tr"><div class="q-label"><div class="ql-t">Commit</div><div class="ql-s">High value + high diff.</div></div></div>
-          <div class="quadrant q-bl"><div class="q-label"><div class="ql-t">Kill it</div><div class="ql-s">Low value + low diff.</div></div><span class="axis-tick" style="bottom:4px;right:6px">Low</span><span class="axis-tick" style="bottom:4px;left:6px">Low</span></div>
-          <div class="quadrant q-br"><div class="q-label"><div class="ql-t">Explore</div><div class="ql-s">High diff., low value</div></div><span class="axis-tick" style="bottom:4px;right:6px">High</span></div>
-        </div>
-        <div class="mat-x-label">Differentiation (right to win)</div>
+    <div class="log-section-body">
+      <div class="log-row">
+        <div class="log-row-icon">&#9749;</div>
+        <div class="log-row-txt"><strong>Breakfast is included in your hotel stay</strong> &mdash; please eat before arriving at the venue each morning.</div>
+      </div>
+      <div class="log-row">
+        <div class="log-row-icon">&#128694;</div>
+        <div class="log-row-txt"><strong>The venue is a 20-minute walk from The Eddy</strong> &mdash; 1010 Washington Ave, Golden. A nice way to start the day.</div>
       </div>
     </div>
-    <div class="mat-legend" id="mat-legend"></div>
-    <div class="mat-info" id="mat-info">Click anywhere on the matrix to place a bet, or drag existing bets to reposition.</div>
-    <div class="mat-reset"><button class="mat-btn" onclick="resetPos()">Reset to defaults</button></div>
   </div>
+
+  <div class="log-section">
+    <div class="log-section-hdr">
+      <div class="log-section-title">&#11088; Local recommendations</div>
+    </div>
+    <div class="log-section-body">
+      <div class="log-row">
+        <div class="log-row-icon">&#9749;</div>
+        <div class="log-row-txt"><strong>Cafe 13</strong> &mdash; Coffee &amp; lunch. Highly recommended.</div>
+      </div>
+      <div class="log-row">
+        <div class="log-row-icon">&#9749;</div>
+        <div class="log-row-txt"><strong>Windy Saddle</strong> &mdash; Great coffee spot.</div>
+      </div>
+      <div class="log-row">
+        <div class="log-row-icon">&#127866;</div>
+        <div class="log-row-txt"><strong>Breweries</strong> &mdash; New Terrain, Cannonball Creek, and Mountain Toad are all lovely.</div>
+      </div>
+      <div class="log-row">
+        <div class="log-row-icon">&#128690;</div>
+        <div class="log-row-txt"><strong>Clear Creek Canyon Trail</strong> &mdash; Biking, walking, or running along the trail is highly recommended.</div>
+      </div>
+      <div class="log-row">
+        <div class="log-row-icon">&#129406;</div>
+        <div class="log-row-txt"><strong>Wednesday AM hike</strong> &mdash; We can organize a group hike if people are interested!</div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- WORKSHEET -->
